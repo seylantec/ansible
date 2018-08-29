@@ -1,0 +1,21 @@
+--- #Playbook adding a Notification and a handling Example for localhost
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  connection: ssh
+  tasks:
+  - name: installing nginx web server
+    yum: 
+      name: nginx
+      state: latest
+    notify: 
+    - enable and start the nginx service
+  handlers: 
+  - name: enable and start the nginx service
+    service: 
+        name: nginx 
+        enabled: yes
+        state: restarted
+            
