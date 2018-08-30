@@ -1,0 +1,17 @@
+--- # Testing how varibles works in the vars seciton
+- hosts: '{{ mylocalhost }}'
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: '{{ gather }}'     
+  vars:
+    mylocalhost: local
+    gather: yes
+    pkg: bluefish
+  tasks: 
+  - name: Install Bluefish in the localhost
+    yum: 
+      name: '{{ pkg }}'
+      state: latest
+
