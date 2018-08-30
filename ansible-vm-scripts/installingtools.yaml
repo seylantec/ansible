@@ -1,2 +1,5 @@
 --- # Installing apps on two factors
-
+- hosts: centos6
+  remote_user: ansible
+  become: yes
+  
