@@ -1,0 +1,14 @@
+--- # Overiding the path roles section. 
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: yes
+  pre_tasks: 
+     - name: Ping the application server
+       local_action: raw ping -c 4 local > /home/ansible/ansible/AnsibleCourse/overridingRoles/ping.out
+     roles: 
+     - local
+
+
