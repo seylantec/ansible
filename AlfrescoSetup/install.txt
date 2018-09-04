@@ -1,0 +1,13 @@
+-- webserver
+-- ansible
+-- start the server
+-- either with unzipping the file from the tar ball file
+-- unzip the alfresco
+-- copy to the tomact install directory
+-- before this check the instance of the working directory
+-- run the sql command which creates the database
+-- Modify and edit the shared.loader in the catalina.properties file property
+-- install the mysql work to execute the task
+-- copy the mysql connector to the lib directory
+-- so far this is the process 
+
