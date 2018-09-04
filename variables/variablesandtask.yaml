@@ -1,0 +1,13 @@
+--- # Variable Declarations and setups
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo 
+  connection: ssh
+  gather_facts: yes
+  vars: 
+  tasks: 
+  - name: Installing JAVA with Ansible 
+     
+
+

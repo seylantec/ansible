@@ -1,0 +1,24 @@
+---  # My first play book on yml
+
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  vars:
+    playbook_version: 0.1b
+  vars_files: 
+   -  copywright.yml
+   -  webdefaults.yml
+  vars_prompt: 
+   - name: web_domain
+     prompt: Web domain
+  tasks:
+   - name: Install apache web server
+   - action: yum name=httpd state=installed  
+   - notify: Restart HTTPD
+  handler: 
+   - name:  Restart the apache web server 
+     action: service name=httpd state=restarted
+    

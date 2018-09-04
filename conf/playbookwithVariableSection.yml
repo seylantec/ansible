@@ -13,4 +13,10 @@
   vars_prompt: 
    - name: web_domain
      prompt: Web domain
-    
+#when ever defining the action section it could have any modules that can relate to the specific commands
+  tasks:
+   - name: Install Lynx web browser
+     action: yum name=lynx state=installed
+   - name: Checking for telnet clients
+     action: yum name=telnet state=latest
+
