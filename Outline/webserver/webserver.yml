@@ -1,0 +1,36 @@
+--- # Outline Playbook and Installing the Project with Translation this contains multiple tasks executing the command
+- hosts: local
+  remote_user: ansible 
+  become: yes
+  become_method: sudo 
+  gather_facts: no
+  tasks: 
+  - name: date/time stamp for when the playbook start
+    raw: /usr/bin/date > /home/ansible/ansible/Outline/webserver/playbook_start.log
+  - name: Install the tomcat webserver 
+    yum: 
+      name: tomcat
+      state: latest
+  - name: start and verify the webservice is running
+    service: name=tomcat state=restarted
+  - name: verifying the runing
+    command: systemctl status httpd
+    register: results
+  - debug: var=result       
+  - name: install client software - telnet 
+    yum:
+      name: telnet 
+      state: latest
+  - name: install client software - lynx
+    yum: 
+      name: lynx 
+      state: latest
+  - name: install client software - bluefish
+    yum: 
+      name: bluefish 
+      state: latest
+  - name: Logging the list of installed software   
+    raw: yum list installed > /home/ansible/ansible/Outline/webserver/listoflogs.log
+  - name: Logging the time for setup
+    raw: /usr/bin/date > /home/ansible/ansible/Outline/webserver/playbook_stop.log
+
