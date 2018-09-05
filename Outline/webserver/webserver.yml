@@ -14,7 +14,7 @@
   - name: start and verify the webservice is running
     service: name=tomcat state=restarted
   - name: verifying the runing
-    command: systemctl status httpd
+    command: systemctl status tomcat
     register: results
   - debug: var=result       
   - name: install client software - telnet 
