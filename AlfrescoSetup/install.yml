@@ -17,7 +17,10 @@
   - name: Creating Directory for Alfresco /opt/ansible/alfresco5
     file: path=/ansible/alfresco5 state=/opt
   - name: Copying Alfresco to /opt/ansible/alfresco5
+    copy: 
+      src: 
 
+# Stopped at the src Copy section
 #-- copy the necessary files to one    
 #-- webserver
 #-- ansible
