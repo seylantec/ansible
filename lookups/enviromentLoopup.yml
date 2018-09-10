@@ -1,0 +1,11 @@
+--- # Finding the Home eviromental variable for PCs
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo 
+  connection: ssh
+  gather_facts: no
+  tasks: 
+  - debug: msg="{{ lookup('env', 'HOME') }}  is the value listed"
+
+
