@@ -1,0 +1,4 @@
+- name: Install the Visual Studio Code
+  yum: pkg=code state=latest
+- name: Install the Emacs
+  yum: pkg=emacs state=latest
