@@ -1,0 +1,17 @@
+--- # Notify the task settings
+- hosts: local
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  tasks:
+  - name: Installing tomcat server
+    yum: pkg=tomcat state=latest
+    notify: Restart Tomcat server
+  handlers: 
+  - name: Restart Tomcat server
+    action: service name=tomcat state=restarted
+# Both Name and notify modules should be same as mentioned  
+
+
+
