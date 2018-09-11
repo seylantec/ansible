@@ -1,0 +1,16 @@
+--- # Run once playbook 
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  tasks: 
+  - name: Run the uptime command on localhost log it 
+    raw: /usr/bin/uptime >> /home/ansible/ansible/runonce/uptime.log
+  - name: Logging the directory settings for the location
+    raw: ls -al /var >> /home/ansible/ansible/runonce/directory.log
+    run_once: true  
+
+
+

@@ -1,0 +1,26 @@
+total 24
+drwxr-xr-x. 21 root root 4096 Sep  4 04:48 .
+dr-xr-xr-x. 18 root root  242 Aug 20 04:40 ..
+drwxr-xr-x   2 root root   19 Aug 13 08:17 account
+drwxr-xr-x.  2 root root    6 Apr 11 00:59 adm
+drwxr-xr-x. 15 root root  191 Sep  4 04:48 cache
+drwxr-xr-x.  2 root root    6 Apr 12 13:45 crash
+drwxr-xr-x.  3 root root   34 Jul 25 00:28 db
+drwxr-xr-x.  3 root root   18 Jul 25 00:28 empty
+drwxr-xr-x.  2 root root    6 Apr 11 00:59 games
+drwxr-xr-x.  2 root root    6 Apr 11 00:59 gopher
+drwxr-xr-x.  3 root root   18 May  9 09:48 kerberos
+drwxr-xr-x. 65 root root 4096 Sep 10 04:27 lib
+drwxr-xr-x.  2 root root    6 Apr 11 00:59 local
+lrwxrwxrwx.  1 root root   11 Jul 25 00:26 lock -> ../run/lock
+drwxr-xr-x. 21 root root 4096 Sep 10 04:35 log
+lrwxrwxrwx.  1 root root   10 Jul 25 00:26 mail -> spool/mail
+drwxr-xr-x.  2 root root    6 Apr 11 00:59 nis
+drwxr-xr-x.  2 root root    6 Apr 11 00:59 opt
+drwxr-xr-x.  2 root root    6 Apr 11 00:59 preserve
+lrwxrwxrwx.  1 root root    6 Jul 25 00:26 run -> ../run
+drwxr-xr-x. 12 root root  140 Aug 13 08:18 spool
+drwxr-xr-x   4 root root   28 Aug 13 08:13 target
+drwxrwxrwt. 44 root root 4096 Sep 10 04:49 tmp
+-rw-r--r--.  1 root root  163 Jul 25 08:58 .updated
+drwxr-xr-x.  2 root root    6 Apr 11 00:59 yp

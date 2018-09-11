@@ -1,0 +1,27 @@
+--- # LOOP playbook using ansible 
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  tasks: 
+    - name: Adding a list of users
+      user: 
+        name: "{{ item }}"
+        state: present
+        groups: "wheel"
+      loop: 
+        - testuser1
+        - testuser2
+          
+# Old syntax 
+#      user: name={{ item  }} state=present groups 
+#     with_items: 
+#        - user1 
+#        - user2
+#        - user3
+
+
+
+ 

@@ -1,0 +1,9 @@
+--- # Local actions runned as YML file configurations 
+- hosts: 127.0.0.1
+  user: ansbile
+  sudo: yes
+  connection: local
+  tasks: 
+  - name: Installing the bluefish clients
+    yum: pkg=bluefish state=present
+   
