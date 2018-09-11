@@ -1,0 +1,10 @@
+code.x86_64                                1.27.1-1536226249.el7       @code    
+dmidecode.x86_64                           1:3.0-5.el7                 @anaconda
+geocode-glib.x86_64                        3.20.1-1.el7                @base    
+ibus-rawcode.x86_64                        1.3.2-3.el7                 @base    
+iso-codes.noarch                           3.46-2.el7                  @base    
+microcode_ctl.x86_64                       2:2.1-29.10.el7_5           @updates 
+perl-Encode.x86_64                         2.51-7.el7                  @base    
+python-dmidecode.x86_64                    3.12.2-2.el7                @base    
+python-qrcode-core.noarch                  5.0.1-1.el7                 @base    
+qrencode-libs.x86_64                       3.4.1-3.el7                 @anaconda

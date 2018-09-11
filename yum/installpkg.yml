@@ -1,0 +1,16 @@
+--- # Maintaining an interactive ansible playbook | Using user package example
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  vars_prompt: 
+  - name: pkgToInstall
+    prompt: Install which package? 
+    default: tomcat
+    private: no
+  tasks: 
+  - name: Making an interactive playbook settings
+    yum: pkg={{ pkgToInstall }} state=latest
+    

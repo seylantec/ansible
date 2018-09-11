@@ -1,0 +1,20 @@
+--- # Tag functionality example
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: yes
+  tasks: 
+   - name: Installing emacs and code for exact server
+     yum: pkg={{ item }} state=latest
+     with_items: 
+        - emacs
+        - code
+        - tomcat
+     tags: 
+       - packages
+   - name: Verify that code is installed
+     raw: yum list installed | grep tomcat > /home/ansible/ansible/tags/tomcattags.log
+     tags:
+       - tomcatverification

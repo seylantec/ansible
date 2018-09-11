@@ -1,0 +1,14 @@
+--- # Common header play book for setting up other tasks. We are including the file from here
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo 
+  connection: ssh
+  gather_facts: no
+  tasks:
+   - include: packages.yml
+   - name: Verify the Code
+     raw: yum list installed | grep code > /home/ansible/ansible/play/codelogs.log
+   - name: Verify the Emacs
+     raw: yum list installed | grep emacs > /home/ansible/ansible/play/includelogs.log 
+  
