@@ -1,2 +1,2 @@
 - name: Restart code
-  service: name= code state=restart
+  service: name=code state=restart
