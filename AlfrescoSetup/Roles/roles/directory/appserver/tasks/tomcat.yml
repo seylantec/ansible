@@ -1,4 +1,20 @@
 ---
+- name: Getting Tomcat Version
+  get_url: 
+    url: http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.34/bin/apache-tomcat-8.5.34.zip
+    dest: /opt/ansible/apache-tomcat-8.5.34.zip
+  register: tomcat_downloaded
+  
+- name: Extracting Tomcat
+  command: unzip -o /opt/ansible/apache-tomcat-8.5.34.zip -d /opt/ansible/
+  register: tomcat_extracted
+  when: tomcat_downloaded is changed
+
+- name: Install Tomcat
+  command: mv /opt/ansible/apache-tomcat-8.5.34 /opt/ansible/tomcat
+  register: tomcat_moved
+  when: tomcat_extracted is changed
+
 - name: Set shared loader
   lineinfile: dest={{ tomcat_user_home }}/conf/catalina.properties regexp="^shared.loader=" line="shared.loader=${catalina.base}/shared/classes,${catalina.base}/shared/lib/*.jar"
 
