@@ -1,12 +1,18 @@
 ---
+- name: Making the Directory for the MySQL
+  file: 
+    path: /opt/mysql
+    state: directory 
+    mode: 0755
+
 - name: Download mysql-java-connector
   get_url:
     url: https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.35/mysql-connector-java-5.1.35.jar
-    dest: /home/ansible/downloads/mysql-connector-java-5.1.35.jar
+    dest: /opt/mysql/mysql-connector-java-5.1.35.jar
   register: mysqlconnector_downloaded
 
 - name: Moving Mysql Jar  
-  command: mv /home/ansible/downloads/mysql-connector-java-5.1.35.jar /opt/ansible/tomcat/lib/
+  command: mv /opt/mysql/mysql-connector-java-5.1.35.jar /opt/ansible/tomcat/lib/
   when: mysqlconnector_downloaded
 
 #- name: Extract mysql-java-connector {{ mysql_connector_version }}

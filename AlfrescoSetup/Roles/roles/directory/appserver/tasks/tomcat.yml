@@ -1,14 +1,26 @@
 ---
+- name: Making the Directory for Ansible Alfresco
+  file: 
+    path: /opt/ansible
+    state: directory
+    mode: 0755
+  register: directory_created
+
 - name: Getting Tomcat Version
   get_url: 
     url: http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.34/bin/apache-tomcat-8.5.34.zip
     dest: /opt/ansible/apache-tomcat-8.5.34.zip
   register: tomcat_downloaded
-  
+ 
+- name: Debug directory_created
+  debug: 
+     var: tomcat_downloaded
+     verbosity: 2
+
 - name: Extracting Tomcat
   command: unzip -o /opt/ansible/apache-tomcat-8.5.34.zip -d /opt/ansible/
   register: tomcat_extracted
-  when: tomcat_downloaded is changed
+  when: directory_created  is changed
 
 - name: Install Tomcat
   command: mv /opt/ansible/apache-tomcat-8.5.34 /opt/ansible/tomcat

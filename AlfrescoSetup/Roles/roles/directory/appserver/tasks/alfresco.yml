@@ -1,25 +1,45 @@
 ---
-- name: Download alfresco community4.2.f
-  get_url:
-    url: https://download.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-4.2.f.zip
-    dest: /home/ansible/downloads/alfresco-community-4.2.f.zip
-  register: alfresco_downloaded
+- name: Making Directory for Alfresco 4.2
+  file: 
+    path: /opt/ansible/archive
+    state: directory
+    mode: 0755
   
-- name: Extract /home/ansible/downlaods/alfresco-community-4.2.f.zip to /home/ansible/downloads/alfresco-community-4.2.f
+#- name: Download alfresco community4.2.f
+#  get_url:
+#    url: https://download.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-4.2.f.zip
+#    dest: /opt/ansible/archive/alfresco-community-4.2.f.zip
+#    validate_certs: no
+#  register: alfresco_downloaded
+- name: Changing the OWNERSHIP for Ansible Directory
+  file: dest=/opt/ansible owner=ansible group=ansible mode=u=rwX,g=rX,o=rX recurse=yes
+  register: ownership_changed
+
+- name: Go to OPT Directory
+  shell: cd /opt/ansible/archive
+  register: moved_path
+  when: ownership_changed is success
+
+- name: Download Alfresco
+  shell: 'wget https://download.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-4.2.f.zip  -P /opt/ansible/archive '
+  when: moved_path is success
+  register: alfresco_downloaded
+
+- name: Extract /opt/ansible/archive/alfresco-community-4.2.f.zip to /home/ansible/downloads/alfresco-community-4.2.f
 #  command: unzip -o /home/ansible/downlaods/alfresco-community-4.2.f.zip -d /home/ansible/downloads/alfresco-community-4.2.f
   unarchive:
-    src: /home/ansible/downlaods/alfresco-community-4.2.f.zip
-    dest: /home/ansible/downloads/alfresco-community-4.2.f
+    src: /home/ansible/alfresco-community-4.2.f.zip
+    dest: /opt/ansible/archive/alfresco-community-4.2.f
     remote_src: yes
   register: alfresco_extracted
   when: alfresco_downloaded is changed
 
 - name: Install alfresco to tomcat
-  shell: cp -r /home/ansible/downloads/alfresco-community-4.2.f/web-server/* /opt/ansible/
+  shell: cp -r /opt/ansible/archive/alfresco-community-4.2.f/web-server/* /opt/ansible/
   when: alfresco_extracted is changed
 
 - name: Install alfresco bin, licenses and readme
-  shell: cp -r /home/ansible/downloads/alfresco-community-4.2.f/bin /home/ansible/downloads/alfresco-community-4.2.f/licenses /home/ansible/downloads/alfresco-community-4.2.f/README.txt  /opt/ansible/
+  shell: cp -r /opt/ansible/archive/alfresco-community-4.2.f/bin /opt/ansible/archive/alfresco-community-4.2.f/licenses /opt/ansible/archive/alfresco-community-4.2.f/README.txt  /opt/ansible/
   when: alfresco_extracted is changed
 
 #- name: Install alfresco amps for alfresco share (5.2)

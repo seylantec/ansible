@@ -1,14 +1,31 @@
 ---
-- name: Download solr community
-  get_url:
-    url: http://dl.alfresco.com/release/community/{{ alfresco_version }}-build-{{ alfresco_build }}/{{ solr_version_url }}.zip
-    dest: /tmp/{{ solr_version_url }}.zip
-  register: alfresco_solr_downloaded
+#- name: Download solr community
+#  get_url:
+#    url: http://dl.alfresco.com/release/community/{{ alfresco_version }}-build-{{ alfresco_build }}/{{ solr_version_url }}.zip
+#    dest: /tmp/{{ solr_version_url }}.zip
+#  register: alfresco_solr_downloaded
 
-- name: Extract alfresco solr
-  command: unzip -o /tmp/{{ solr_version_url }}.zip -d /tmp/alfresco-solr/
+- name: Move to Directory
+  command: cd /opt/ansible/archive
+  register: moved_path
+
+- name: Download Solr community
+  shell: 'wget https://download.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-solr-4.2.f.zip'
+  register: downloaded_community_solr
+  when: moved_path is success
+
+#- name: Extract alfresco solr
+#  command: unzip -o /opt/ansible/archive/alfresco-community-solr-4.2.f.zip  -d /opt/ansible/alfresco-community-solr-4.2.f
+#  register: alfresco_solr_extracted
+#  when: alfresco_solr_downloaded is changed
+
+- name: Extract Alfresco Solr
+  unarchive: 
+   src: /opt/ansible/archive/alfresco-community-solr-4.2.f.zip
+   dest: /opt/ansible/archive/alfresco-community-solr-4.2.f
+   remote_src: yes
   register: alfresco_solr_extracted
-  when: alfresco_solr_downloaded is changed
+  when: downloaded_community_solr is changed
 
 - name: Create alfresco-solr directory
   file: path={{ alfresco_user_home }}/solr state=directory owner={{ alfresco_user }} group={{ alfresco_group }}

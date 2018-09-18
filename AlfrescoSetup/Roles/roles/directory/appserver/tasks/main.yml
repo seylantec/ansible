@@ -18,8 +18,8 @@
 - include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
   
-- include: setup-Ubuntu.yml
-  when: ansible_os_family == 'Debian'
+#- include: setup-Ubuntu.yml
+#  when: ansible_os_family == 'Debian'
   
 # Install tomcat configuration
 - include: tomcat.yml
