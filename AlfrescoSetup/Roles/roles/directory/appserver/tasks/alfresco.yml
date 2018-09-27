@@ -38,11 +38,11 @@
 
 
 - name: Install alfresco to tomcat
-  shell: cp -r /opt/ansible/archive/web-server/* /opt/ansible/
+  shell: cp -r /opt/ansible/archive/web-server/webapps/* /opt/ansible/tomcat/webapps/
   when: alfresco_extracted is changed
 
 - name: Install alfresco bin, licenses and readme
-  shell: cp -r /opt/ansible/archive/bin /opt/ansible/archive/licenses /opt/ansible/archive/README.txt  /opt/ansible/
+  shell: cp -r /opt/ansible/archive/bin /opt/ansible/bin
   when: alfresco_extracted is changed
 
 #- name: Install alfresco amps for alfresco share (5.2)
@@ -102,16 +102,23 @@
   when: alfresco_extracted is changed
 
 - name: Set alfresco file owner
-  shell: chown -R {{ alfresco_user }}:{{ alfresco_group }} {{ alfresco_user_home }} && chown -R {{ alfresco_user }}:{{ alfresco_group }} {{ alfresco_user_home }}tomcat/
+  shell: chown -R ansible:ansible /opt/ansible  
   when: alfresco_extracted is changed
   
 #- include: azure-blob-storage.yml
 #  when: setup_azure_blob_storage
 
+
+# This doesn't work all the time
+
+#- name: Start alfresco server
+#  shell: /sbin/service alfresco start
+#  when: alfresco_extracted is changed
+
 - name: Start alfresco server
-  shell: /sbin/service alfresco start
+  shell: '/bin/bash /opt/ansible/bin/alfresco.sh'
   when: alfresco_extracted is changed
-  
+
 - name: Wait for alfresco war deploy
   wait_for: path=/opt/ansible/tomcat/webapps/alfresco/WEB-INF/web.xml
   when: alfresco_extracted is changed

@@ -18,9 +18,13 @@
      verbosity: 2
 
 - name: Extracting Tomcat
-  command: unzip -o /opt/ansible/apache-tomcat-8.5.34.zip -d /opt/ansible/
+#  command: unzip -o /opt/ansible/apache-tomcat-8.5.34.zip -d /opt/ansible/
+  unarchive:
+    src: /opt/ansible/apache-tomcat-8.5.34.zip 
+    dest: /opt/ansible/
+    remote_src: yes 
   register: tomcat_extracted
-  when: directory_created  is changed
+ 
 
 - name: Install Tomcat
   command: mv /opt/ansible/apache-tomcat-8.5.34 /opt/ansible/tomcat
