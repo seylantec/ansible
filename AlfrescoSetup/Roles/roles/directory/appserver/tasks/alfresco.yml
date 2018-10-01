@@ -12,7 +12,7 @@
 #    validate_certs: no
 #  register: alfresco_downloaded
 - name: Changing the OWNERSHIP for Ansible Directory
-  file: dest=/opt/ansible owner=ansible group=ansible mode=u=rwX,g=rX,o=rX recurse=yes
+  file: dest=/opt/ansible owner=ansible group=ansible mode=u=rwX,g=rwX,o=rwX recurse=yes
   register: ownership_changed
 
 - name: Go to OPT Directory
@@ -20,13 +20,19 @@
   register: moved_path
   when: ownership_changed is success
 
-- name: Download Alfresco
+- name: Download Alfresco with Wget
   shell: 'wget https://download.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-4.2.f.zip  -P /opt/ansible/archive '
   when: moved_path is success
   register: alfresco_okay
 
+#- name: Downloading Alfresco
+#  get_url: 
+#     url: https://download.alfresco.com/release/community/4.2.f-build-00012/alfresco-community-4.2.f.zip
+#     dest: /opt/ansible/archive/alfresco-community-4.2.f.zip
+#  register: alfresco_okay
+
 - name: Changing the File Again Permission
-  file: dest=/opt/ansible owner=ansible group=ansible mode=u=rwX,g=rX,o=rX recurse=yes
+  file: dest=/opt/ansible owner=ansible group=ansible mode=u=rwX,g=rwX,o=rwX recurse=yes
   register: directory_permissions
 
 - name: Extract /opt/ansible/archive to /opt/ansible/archive 
@@ -35,7 +41,6 @@
     dest: /opt/ansible/archive/
     remote_src: yes
   register: alfresco_extracted
-
 
 - name: Install alfresco to tomcat
   shell: cp -r /opt/ansible/archive/web-server/webapps/* /opt/ansible/tomcat/webapps/
@@ -70,11 +75,11 @@
   when: alfresco_extracted is changed
 
 - name: Install libreoffice startup script
-  copy: src=start_oo.sh dest=/opt/ansible/bin/start_oo.sh owner=ansible group=ansible  mode=0755
+  copy: src=start_oo.sh dest=/opt/ansible/bin/start_oo.sh owner=ansible group=ansible  mode=0775
   when: alfresco_extracted is changed
 
 - name: Install alfresco startup script
-  template: src=alfresco.sh.j2 dest=/opt/ansible/bin/alfresco.sh owner=ansible group=ansible  mode=0755 backup=yes
+  template: src=alfresco.sh.j2 dest=/opt/ansible/bin/alfresco.sh owner=ansible group=ansible  mode=0775 backup=yes
   when: alfresco_extracted is changed
 
 - name: Create Shared Classes Directory
@@ -84,7 +89,7 @@
     mode: 0755
 
 - name: Install alfresco init script
-  template: src=alfresco.j2 dest=/etc/init.d/alfresco owner=ansible group=ansible  mode=0755
+  template: src=alfresco.j2 dest=/etc/init.d/alfresco owner=ansible group=ansible  mode=0775
   when: alfresco_extracted is changed
 
 - name: Install alfresco global configuration
@@ -115,8 +120,12 @@
 #  shell: /sbin/service alfresco start
 #  when: alfresco_extracted is changed
 
+- name: Correcting the Permission for Tomcat Directory
+  shell: 'chmod -R 775 /opt/ansible/tomcat/bin ' 
+  
+
 - name: Start alfresco server
-  shell: '/bin/bash /opt/ansible/bin/alfresco.sh'
+  command: sh /opt/ansible/bin/alfresco.sh start
   when: alfresco_extracted is changed
 
 - name: Wait for alfresco war deploy

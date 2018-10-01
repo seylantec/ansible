@@ -31,6 +31,10 @@
   register: tomcat_moved
   when: tomcat_extracted is changed
 
+- name: Changing the Ownership for execution
+  file: dest=/opt/ansible/tomcat owner=ansible group=ansible mode=u=rwX,g=rwX,o=rwX recurse=yes
+  register: Ownership_done
+
 - name: Set shared loader
   lineinfile: dest={{ tomcat_user_home }}/conf/catalina.properties regexp="^shared.loader=" line="shared.loader=${catalina.base}/shared/classes,${catalina.base}/shared/lib/*.jar"
 

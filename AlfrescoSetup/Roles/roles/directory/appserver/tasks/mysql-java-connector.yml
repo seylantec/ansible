@@ -1,9 +1,35 @@
 ---
+- name: Making RPM Directory
+  file: 
+    path: /opt/rpms
+    state: directory
+    mode: 0755
+
+- name: Getting MySql from the repo
+  get_url: 
+    url: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm 
+    dest: /opt/rpms
+  register: mysql_downloaded 
+
+- name: Installing the RPM
+  yum: 
+    name: /opt/rpms/mysql-community-release-el7-5.noarch.rpm
+    state: present
+
 - name: Making the Directory for the MySQL
   file: 
     path: /opt/mysql
     state: directory 
     mode: 0755
+
+- include: yumupdate.yml
+  when: ansible_os_family == "RedHat"
+
+
+- name: Installing mysql
+  yum: 
+    name: mysql-server
+    state: latest 
 
 - name: Download mysql-java-connector
   get_url:
@@ -13,7 +39,7 @@
 
 - name: Moving Mysql Jar  
   command: mv /opt/mysql/mysql-connector-java-5.1.35.jar /opt/ansible/tomcat/lib/
-  when: mysqlconnector_downloaded
+  when: mysqlconnector_downloaded is changed
 
 #- name: Extract mysql-java-connector {{ mysql_connector_version }}
 #  unarchive:
