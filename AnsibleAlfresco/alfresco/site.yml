@@ -1,0 +1,19 @@
+- hosts: all
+  become: true
+  vars:
+    tomcat_group: 'alfresco'
+    tomcat_user: 'alfresco'
+    tomcat_user_home: '/opt/ansible/alfresco/tomcat' 
+    mysql_databases:
+      - name: alfresco
+    mysql_users:
+      - name: alfresco
+        password: alfresco
+        priv: "alfresco.*:ALL" 
+  roles:
+    - role: ansible-role-java
+    - role: ansible-role-mysql
+    - role: ansible-role-tomcat8.5
+    - role: ansible-role-alfresco
+
+
