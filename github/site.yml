@@ -1,4 +1,4 @@
-- hosts: local
+- hosts: all
   become: true
   vars:
     tomcat_group: 'alfresco'
