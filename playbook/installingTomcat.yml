@@ -1,0 +1,24 @@
+--- # Installing Tomcat server with Ansible 
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  tasks: 
+   - name: Installing apache with yum
+     yum: 
+       name: httpd 
+       state: absent
+     notify: 
+     - startservice
+  handlers: 
+  - name: startservice
+    service: 
+       name: httpd
+       state: restarted
+                
+
+
+
+

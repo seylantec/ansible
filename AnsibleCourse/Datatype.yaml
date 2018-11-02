@@ -1,0 +1,12 @@
+--- # Yaml Introduction to Data types
+
+ a: 123 #Integer
+ b: "123" #a string, disambiguated by quotes
+ c: 12.3  # a float value
+ d: !!float 123 # also a float via explicit data types prefixed by (!!)
+ e: !!str 123 # a string, disambiguated by explicit type
+ f: !!str "Yes" 
+ g: Yes # Boolean true value (yaml 1.1)  string "Yes" (yaml 1.2)
+ H: Yes sir we have no bananas today #Yes and No disambiguated by context
+ 
+

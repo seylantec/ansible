@@ -1,0 +1,14 @@
+--- # Installing tomcat on Centos
+- hosts: localhost
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: yes
+  tasks: 
+  - name: Installing Tomcat on localhost
+    yum: 
+      name: tomcat
+      state: latest
+
+

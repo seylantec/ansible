@@ -1,0 +1,7 @@
+playbook task execution
+- install tomcat
+- as ansible user
+
+
+
+

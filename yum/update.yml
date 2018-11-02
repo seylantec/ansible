@@ -1,0 +1,13 @@
+--- # updating Yum ansible book
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  tasks:
+  - name: Updating yum repo
+    shell: yum update
+
+
+

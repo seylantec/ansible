@@ -1,0 +1,68 @@
+###############################
+## Common Alfresco Properties #
+###############################
+
+authentication.chain=alfrescoNtlm1:alfrescoNtlm
+alfresco.rmi.services.host=0.0.0.0
+alfresco.port={{ tomcat_port }}
+share.port={{ tomcat_port }}
+
+#alfresco.context=alfresco
+#alfresco.host=127.0.0.1
+#alfresco.port={{ tomcat_port }}
+#alfresco.protocol=http
+
+#share.context=share
+#share.host=127.0.0.1
+#share.port={{ tomcat_port }}
+#share.protocol=http
+
+{% if setup_azure_blob_storage%}
+#
+# Azure Blob Storage Plugin
+#-------------
+# Your Azure credentials
+azure.accessKey={{ azure_ssh_key }}
+# The Azure block content store Container Name
+azure.containerName={{ azure_container_name }}
+# The Azure block content store Account Name
+azure.accountName={{ azure_storage_account }}
+# The relative path within the bucket to use as the content store
+dir.contentstore=contentstore
+# The relative path within the bucket to use as the deleted content store
+dir.contentstore.deleted=contentstore.deleted
+{% endif %}
+
+#
+# File locations
+#-------------
+dir.root={{ alfresco_data_home }}/alf_data
+
+#
+# Database
+#-------------
+db.username={{ alfresco_db_user }}
+db.password={{ alfresco_db_password }}
+db.schema.update=true
+db.driver={{ alfresco_db_driver }}
+db.url={{alfresco_default_database_url}}
+
+#
+# External locations
+#-------------
+ooo.exe=/usr/bin/soffice
+ooo.enabled=true
+jodconverter.officeHome=/usr/lib64/libreoffice
+jodconverter.portNumbers={{ tomcat_port }}
+jodconverter.enabled=false
+img.root=/usr/share/doc/ImageMagick-{{ imagemagick_version }}
+img.exe=/usr/bin/convert
+swf.exe=/usr/bin/pdf2swf
+
+#
+# Index
+#-------------
+solr.host={{- ip_solr }}
+solr.port={{- solr_port }}
+index.subsystem.name={{solr_version}}
+solr.secureComms=none

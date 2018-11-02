@@ -1,0 +1,4 @@
+- name: Install the emacs text editor
+  yum: pkg=emacs state=latest
+- name: Install the text editor
+  yum: pkg=code state=latest

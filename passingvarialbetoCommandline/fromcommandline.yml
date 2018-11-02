@@ -1,0 +1,16 @@
+--- # Executing from Commandline
+- hosts: '{{ hosts }}'
+  remote_user: '{{ user }}'
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  vars_prompt:
+   - name: "software"
+     prompt: Please specify the software which needs to be installed?
+  tasks: 
+   - name: Installing a software
+     yum: pkg={{ software }} state=latest
+   
+
+

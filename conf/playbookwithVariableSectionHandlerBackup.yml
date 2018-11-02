@@ -1,0 +1,27 @@
+---  # My first play book on yml
+
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  vars:
+    playbook_version: 0.1b
+  vars_files: 
+   -  copywright.yml
+   -  webdefaults.yml
+  vars_prompt: 
+   - name: web_domain
+     prompt: Web domain
+#when ever defining the action section it could have any modules that can relate to the specific commands
+  tasks:
+   - name: Install apache web server
+   - action: yum name=httpd state=installed
+# Handler sections are there for notifying the action what task is being done 
+# Whern working with httpd both notify and handler names should be same when executing. 
+   - notify: Restart HTTPD
+  handler: 
+   - name:  Restart the apache web server 
+     action: service name=httpd state=restarted
+    

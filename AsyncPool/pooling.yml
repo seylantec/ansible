@@ -1,0 +1,20 @@
+--- # Pooling Example for Testing Ansible
+- hosts: all
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  vars: 
+    playbook_version: 0.1b
+  tasks: 
+  - name: Installing the Tomcat server asynchronously on the mac
+    action: yum name=tomcat state=latest
+    async: 300
+    poll: 3
+    notify: Restarting the Async Work
+  handlers:
+  - name: Restarting the Async Work
+    action: service name=tomcat state=restarted 
+
+

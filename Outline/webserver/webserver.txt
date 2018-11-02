@@ -1,0 +1,20 @@
+- local
+- test 
+- sudo rights
+
+- date/time stamp for when the playbook start
+- install the tomcat webserver 
+- start the web service 
+
+- verify the webservice is running
+
+- install client software 
+  - telnet
+  - lynx 
+  - bluefish
+  
+
+- log all the packages installed in the system
+  - date/time stamps for when the playbook ends
+  
+

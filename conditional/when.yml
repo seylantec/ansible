@@ -1,0 +1,16 @@
+--- # When playbook example
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo 
+  connection: ssh
+  vars: 
+    playbook_type: conditionalExample
+  tasks: 
+   - name: Install Apache appropriately for distribution
+     command: yum  -y install bluefish
+     when: ansible_os_family == "RedHat" 
+   - name: Installing on other OS (Debian/Ubuntu)    
+     command: apt-get install -y bluefish
+     when: ansible_os_family == "Debian" 
+            

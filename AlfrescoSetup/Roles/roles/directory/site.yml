@@ -1,0 +1,24 @@
+--- # Install Alfresco
+- hosts: all
+  remote_user: ansible
+  connection: ssh
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+    tomcat_group: 'alfresco'
+    tomcat_user: 'alfresco'
+    tomcat_user_home: '/opt/ansible/tomcat'  
+    mysql_databases:
+      - name: alfresco
+    mysql_users:
+      - name: alfresco
+        password: alfresco
+        priv: "alfresco.*:ALL"
+    alfresco_user_home: '/opt/ansible/'
+    alfresco_user: 'ansible'
+    alfresco_group: 'ansible'
+  roles:
+    - appserver
+  
+    #role in test: alfresco

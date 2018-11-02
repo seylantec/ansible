@@ -1,0 +1,47 @@
+--- # Installing alfresco from unzipping the file and copying it
+- hosts: local
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: yes
+  vars:
+     tomcat_group: 'alfresco'
+     tomcat_user: 'alfresco'
+     tomcat_user_home: '/opt/alfresco/tomcat'
+     mysql_databases:
+       - name: alfresco
+     mysql_users:
+       - name: alfresco
+         password: alfresco
+         priv: "alfresco.*:ALL"
+  tasks: 
+   - name: Getting the Tomcat versions downloaded
+     get_url: 
+         url: http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.90/bin/apache-tomcat-7.0.90.zip
+         dest: /home/ansible/downloads/tomcat7.zip
+   - name: Getting Alfresco 5.2.1 version
+     get_url: 
+         url: http://d1juwce2y308l6.cloudfront.net/release/enterprise/5.2/5.2.1-build-00051/alfresco-content-services-distribution-5.2.1.zip?Expires=1535255100&Signature=ifRdpbsvSyToKjclz2M5J4lSnDarU4lJvDda2zsDcpdHgG3t0iDuz4q5AE9i7DOxuegUY-pGjGWGHwjMvQ6rTS56kVEKjU4JP7zclfy20Ia1VqZ4K0~TVKdylivWpOyl3cLsMdSX-SUi5JC0OozX7U2Ll5mZ3gguZnln1Vocp0ItN1iP1BxyVL6ZBPIypVBGCUGbahVzSoINBH3msuMd27Jy~33VV2hoKgy5zXDYcp~oRKg5iSw~QSSHy1UTmlUM6ft415~mTo05nviVvwHhAK4EMbPBXHWyOX6EHgvJWXl~H-lJw~zBjvG7Z~QVnv8rdwwD26ywGFCgfp0faTMyVQ__&Key-Pair-Id=APKAIWUXSJDXLMSTSCYA
+         dest: /home/ansible/downloads/alfresco5.2.1.zip 
+   - name: Creating Directory for Alfresco /opt/ansible/alfresco5
+     file: path=/ansible/alfresco5 state=/opt
+   - name: Copying Alfresco to /opt/ansible/alfresco5
+     copy: 
+       src: 
+
+# Stopped at the src Copy section
+#-- copy the necessary files to one    
+#-- webserver
+#-- ansible
+#-- start the server
+#-- either with unzipping the file from the tar ball file
+#-- unzip the alfresco
+#-- copy to the tomact install directory
+#-- before this check the instance of the working directory
+#-- run the sql command which creates the database
+#-- Modify and edit the shared.loader in the catalina.properties file property
+#-- install the mysql work to execute the task
+#-- copy the mysql connector to the lib directory
+#-- so far this is the process 
+

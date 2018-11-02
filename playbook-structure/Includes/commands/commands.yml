@@ -1,0 +1,3 @@
+- name: Make sure Code and Emacs are installed properly
+  raw: yum list installed | grep code > /home/ansible/ansible/playbook-structure/Includes/installed.log
+
